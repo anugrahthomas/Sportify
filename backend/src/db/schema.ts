@@ -36,7 +36,7 @@ export const commentary = pgTable("commentary", {
   sequence: integer("sequence"),
   period: text("period"),
   eventType: text("event_type"),
-  actor: text("actoe"),
+  actor: text("actor"),
   team: text("team"),
   message: text("message").notNull(),
   metadata: jsonb("metadata"),
