@@ -31,7 +31,14 @@ export const createMatch = async (req: Request, res: Response) => {
         status: getMatchStatus(startTime, endTime),
       })
       .returning();
-    res.status(201).json({ data: event });
+
+      // websocket broadcast
+      const broadcast = res.app.locals.broadcastMatch
+      if(broadcast) {
+        broadcast(event);
+      }
+
+    res.status(201).json({ message: "match created", data: event });
   } catch (error) {
     res.status(500).json({
       error: "Failed to create match",

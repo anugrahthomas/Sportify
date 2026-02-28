@@ -21,3 +21,19 @@ export const getMatchStatus: GET_MATCH_STATUS = (
 
   return MATCH_STATUS.LIVE;
 };
+
+export const syncMatchStatus = async (match: any, updateStatus:any) => {
+  const nextStatus = getMatchStatus(
+    match.startTime,
+    match.endTime,
+  );
+  if (!nextStatus) {
+    return match.status;
+  }
+
+  if (match.status !== nextStatus) {
+    await updateStatus(nextStatus);
+    match.status = nextStatus;
+  }
+  return match.status;
+};

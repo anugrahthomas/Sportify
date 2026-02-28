@@ -5,10 +5,14 @@ import cors from "cors";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
+import { createServer } from "http";
+import { attackWebSocketServer } from "./ws/server";
 dotenv.config();
 
 const app = express();
+const server = createServer(app);
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+const HOST = process.env.HOST || "0.0.0.0";
 
 app.use(morgan("combined"));
 app.use(helmet());
@@ -32,6 +36,15 @@ app.use("/api", limiter);
 // routes
 app.use("/api", matchRouter);
 
-app.listen(PORT, () => {
-  console.log(`Listening on PORT=${PORT}`);
+const { broadcastMatch } = attackWebSocketServer(server);
+// this is global, access everywhere in app
+app.locals.broadcastMatch = broadcastMatch;
+
+server.listen(PORT, HOST, () => {
+  const baseURL =
+    HOST === "0.0.0.0" ? `http://localhost:${PORT}` : `http://${HOST}:${PORT}`;
+  console.log(`Server is running on ${baseURL}`);
+  console.log(
+    `Websocket server is running on ${baseURL.replace("http", "ws")}/ws`,
+  );
 });
