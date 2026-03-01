@@ -1,5 +1,5 @@
 {
-  "id": "9b5df20f-d1d6-4607-938b-a43fbfbf5780",
+  "id": "8fad6cbb-f5cf-4a4c-a81a-51af584751c1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -44,8 +44,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "actoe": {
-          "name": "actoe",
+        "actor": {
+          "name": "actor",
           "type": "text",
           "primaryKey": false,
           "notNull": false
