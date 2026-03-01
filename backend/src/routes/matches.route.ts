@@ -3,7 +3,7 @@ import { createMatch, getMatches } from "../controllers/match.controller";
 
 const matchRouter = Router();
 
-matchRouter.get("/matches", getMatches);
-matchRouter.post("/matches", createMatch);
+matchRouter.get("/", getMatches);
+matchRouter.post("/", createMatch);
 
 export default matchRouter;

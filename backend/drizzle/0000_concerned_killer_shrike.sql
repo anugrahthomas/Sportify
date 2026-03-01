@@ -6,7 +6,7 @@ CREATE TABLE "commentary" (
 	"sequence" integer,
 	"period" text,
 	"event_type" text,
-	"actoe" text,
+	"actor" text,
 	"team" text,
 	"message" text NOT NULL,
 	"metadata" jsonb,

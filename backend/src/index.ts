@@ -7,6 +7,7 @@ import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
 import { createServer } from "http";
 import { attackWebSocketServer } from "./ws/server";
+import commentaryRouter from "./routes/commentary.route";
 dotenv.config();
 
 const app = express();
@@ -32,9 +33,10 @@ const limiter = rateLimit({
     message: "Please try again later.",
   },
 });
-app.use("/api", limiter);
+app.use(limiter);
 // routes
-app.use("/api", matchRouter);
+app.use("/api/matches", matchRouter);
+app.use("/api/matches/:id/commentary", commentaryRouter);
 
 const { broadcastMatch } = attackWebSocketServer(server);
 // this is global, access everywhere in app
